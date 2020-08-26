@@ -29,7 +29,7 @@ public class Warmup2 {
 	 * @param str
 	 * @return
 	 */
-	boolean doubleX(String str) {
+	public boolean doubleX(String str) {
 		  
 	  for (int i = 0; i+1 < str.length(); i++) {
 	    
@@ -286,7 +286,7 @@ public class Warmup2 {
 	 * @param str
 	 * @return
 	 */
-	int countXX(String str) {
+	public int countXX(String str) {
 		  
 	  int count = 0;
 	  
