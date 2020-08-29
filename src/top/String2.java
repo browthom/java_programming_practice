@@ -151,5 +151,173 @@ public class String2 {
 	   
 	   return false;
 	}
+	
+	/**
+	 * https://codingbat.com/prob/p134250
+	 * We'll say that a String is xy-balanced if for all the 'x' 
+	 * chars in the string, there exists a 'y' char somewhere later 
+	 * in the string. So "xxy" is balanced, but "xyx" is not. 
+	 * One 'y' can balance multiple 'x's. Return true if the given 
+	 * string is xy-balanced.
+	 * @param str
+	 * @return
+	 */
+	public boolean xyBalance(String str) {
+	  int xIndex = -1, yIndex = -1;
+	  
+	  for (int i = 0; i < str.length(); i++) {
+	    if (str.charAt(i) == 'x') {
+	      xIndex = i;
+	    } else if (str.charAt(i) == 'y') {
+	      yIndex = i;
+	    }
+	  }
+	  
+	  return (yIndex >= xIndex);
+	}
+
+	/**
+	 * https://codingbat.com/prob/p125185
+	 * Given two strings, a and b, create a bigger string made of the 
+	 * first char of a, the first char of b, the second char of a, 
+	 * the second char of b, and so on. Any leftover chars go at the 
+	 * end of the result.
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public String mixString(String a, String b) {
+	  int size = (a.length() < b.length()) ? a.length() : b.length();
+	  String longerString = (a.length() > b.length()) ? a : b;
+	  
+	  String str = "";
+	  int i = 0;
+	  
+	  for (i = 0; i < size; i++) {
+	     str += a.substring(i,i+1) + b.substring(i,i+1);
+	  }
+	  
+	  str += longerString.substring(i,longerString.length());
+	  
+	  return str;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p152339
+	 * Given a string and an int n, return a string made of n 
+	 * repetitions of the last n characters of the string. 
+	 * You may assume that n is between 0 and the length of 
+	 * the string, inclusive.
+	 * @param str
+	 * @param n
+	 * @return
+	 */
+	public String repeatEnd(String str, int n) {
+	  String newStr = "";
+	  for (int i = 0; i < n; i++) {
+	    newStr += str.substring(str.length()-n, str.length());
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p128796
+	 * Given a string and an int n, return a string made of the 
+	 * first n characters of the string, followed by the first 
+	 * n-1 characters of the string, and so on. You may assume 
+	 * that n is between 0 and the length of the string, 
+	 * inclusive (i.e. n >= 0 and n <= str.length()).
+	 * @param str
+	 * @param n
+	 * @return
+	 */
+	public String repeatFront(String str, int n) {
+	  String newStr = "";
+	  
+	  for (int i = 0; i < n; i++) {
+	    newStr += str.substring(0,n-i);
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p109637
+	 * Given two strings, word and a separator sep, return a 
+	 * big string made of count occurrences of the word, 
+	 * separated by the separator string.
+	 * @param word
+	 * @param sep
+	 * @param count
+	 * @return
+	 */
+	public String repeatSeparator(String word, String sep, int count) {
+	  String newStr = "";
+	  
+	  for (int i = 0; i < count; i++) {
+	    if (i+1 < count) {
+	      newStr += word + sep;
+	    } else {
+	      newStr += word;
+	    }
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p136417
+	 * Given a string, consider the prefix string made of the first 
+	 * N chars of the string. Does that prefix string appear somewhere 
+	 * else in the string? Assume that the string is not empty and 
+	 * that N is in the range 1..str.length().
+	 * @param str
+	 * @param n
+	 * @return
+	 */
+	public boolean prefixAgain(String str, int n) {
+		  
+	  for (int i = n; (i+n)-1 < str.length(); i++) {
+	    if (str.substring(0,n).equals(str.substring(i,i+n))) {
+	      return true;
+	    }
+	  }
+	  
+	  return false;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p159772
+	 * Given a string, does "xyz" appear in the middle of the string? 
+	 * To define middle, we'll say that the number of chars to the left 
+	 * and right of the "xyz" must differ by at most one. This problem 
+	 * is harder than it looks.
+	 * @param str
+	 * @return
+	 */
+	public boolean xyzMiddle(String str) {
+	  // If at least length 3
+	  if (str.length() >= 3) {
+	    
+	    // Two possible scenarios that will return true when length is even
+	    if (str.length() % 2 == 0) {
+	      if (str.substring(str.length()/2-1, str.length()/2+2).equals("xyz") ||
+	          str.substring(str.length()/2-2, str.length()/2+1).equals("xyz")) {
+	        return true;
+	      }
+	    // "xyz" must be in the middle when length is odd
+	    } else {
+	      if (str.substring(str.length()/2-1, str.length()/2+2).equals("xyz")) {
+	        return true;
+	      }
+	    }
+
+	    return false;
+	    
+	  } else {
+	    return false;
+	  }
+	}
 
 }
