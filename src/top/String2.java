@@ -373,7 +373,6 @@ public class String2 {
 	          
 	    
 	  }
-	  
 	  return newStr;
 	}
 	
