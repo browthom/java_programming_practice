@@ -319,5 +319,283 @@ public class String2 {
 	    return false;
 	  }
 	}
+	
+	/**
+	 * https://codingbat.com/prob/p194491
+	 * Returns true if for every '*' (star) in the string, 
+	 * if there are chars both immediately before and after 
+	 * the star, they are the same.
+	 * @param str
+	 * @return
+	 */
+	public boolean sameStarChar(String str) {
+		   
+	  for (int i = 0; i < str.length(); i++) {
+	    
+	    String begStr = "", endStr = "";
+	    
+	    if (i-1 >= 0) {
+	        begStr = str.charAt(i-1) + "";
+	    }
+	    
+	    if (i+1 <= str.length()-1) {
+	        endStr = str.charAt(i+1) + "";
+	    }
+	    
+	    if (str.charAt(i) == '*' &&
+	        (!begStr.equals(endStr) &&
+	          i-1 >= 0 && i+1 <= str.length()-1)) {
+	          return false;
+	    }
+	    
+	  }
+	  return true;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p122943
+	 * Given a string, compute a new string by moving the first char 
+	 * to come after the next two chars, so "abc" yields "bca". 
+	 * Repeat this process for each subsequent group of 3 chars, 
+	 * so "abcdef" yields "bcaefd". Ignore any group of fewer than 
+	 * 3 chars at the end.
+	 * @param str
+	 * @return
+	 */
+	public String oneTwo(String str) {
+	  String newStr = "";
+	  
+	  for (int i = 0; i+3 <= str.length(); i+=3) {
+	    
+	    newStr += str.substring(i+1,i+2) + 
+	             str.substring(i+2,i+3) +
+	             str.substring(i,i+1);
+	          
+	    
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p139564
+	 * Return a version of the given string, where for every star (*) 
+	 * in the string the star and the chars immediately to its left 
+	 * and right are gone. So "ab*cd" yields "ad" and "ab**cd" also 
+	 * yields "ad".
+	 * @param str
+	 * @return
+	 */
+	public String starOut(String str) {
+	  String newStr = "";
+	  
+	  for (int i = 0; i < str.length();) {
+	    // for char at 'i', look into the future at i+1 to see if it is a star
+	    // if star at i+1, 
+	    // then don't add char at i
+	    // then don't add char at i+2 (if i+2 does not have a star)
+	    if (i+1 < str.length()) {
+	      // If neither the current char or future char == '*'
+	      // Add char
+	      if (str.charAt(i) != '*' && str.charAt(i+1) != '*') {
+	        newStr += str.substring(i,i+1);
+	        i++;
+	      // If current char == '*' and future char != "*"
+	      // Skip 2 chars
+	      } else if (str.charAt(i) == '*' && str.charAt(i+1) != '*') {
+	        i+=2;
+	        
+	      // Else, skip 1 char
+	      } else {
+	        i++;
+	      }
+	    // When we have reached the last char index
+	    } else {
+	      if (str.charAt(i) != '*') {
+	        newStr += str.substring(i,i+1);
+	      }
+	      i++;
+	    }
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p170829
+	 * Given a string and a non-empty word string, return a version of 
+	 * the original String where all chars have been replaced by pluses 
+	 * ("+"), except for appearances of the word string which are preserved
+	 *  unchanged.
+	 * @param str
+	 * @param word
+	 * @return
+	 */
+	public String plusOut(String str, String word) {
+		  
+	  String newStr = "";
+	  
+	  for (int i = 0; i < str.length(); ) {
+	    
+	    // If word can fit into the last part of the string
+	    if (i+word.length()-1 < str.length()) {
+	      // Check to see if substring == word
+	      if (str.substring(i,i+word.length()).equals(word)) {
+	        newStr += word;
+	        i += word.length();
+	      // Else add "+" and increment
+	      } else {
+	        newStr += "+";
+	        i++;
+	      }
+	    // If substring(i,length()) is too small to fit 'word'
+	    } else {
+	      newStr += "+";
+	      i++;
+	    }
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p147538
+	 * Given a string and a non-empty word string, return a string made 
+	 * of each char just before and just after every appearance of the 
+	 * word in the string. Ignore cases where there is no char before 
+	 * or after the word, and a char may be included twice if it is 
+	 * between two words.
+	 * @param str
+	 * @param word
+	 * @return
+	 */
+	public String wordEnds(String str, String word) {
+	  String newStr = "";
+	  
+	  for (int i = 0; i < str.length();) {
+	    
+	    if (i+word.length()-1 < str.length()) {
+	      
+	      // If sequence == word
+	      if (str.substring(i, i+word.length()).equals(word)) {
+	        // Add front char
+	        if (i-1 >= 0) {
+	          newStr += str.substring(i-1, i);
+	        }
+	        
+	        // Add back char
+	        if (i+word.length() < str.length()) {
+	          newStr += str.substring(i+word.length(), i+word.length()+1);
+	        }
+	        
+	        // Increment by word.length()
+	        i += word.length();
+	        
+	      } else {
+	        i++;
+	      }
+	      
+	    } else {
+	      i++;
+	    }
+	  }
+	  
+	  return newStr;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p129952
+	 * A sandwich is two pieces of bread with something in between. 
+	 * Return the string that is between the first and last appearance 
+	 * of "bread" in the given string, or return the empty string "" 
+	 * if there are not two pieces of bread.
+	 * @param str
+	 * @return
+	 */
+	public String getSandwich(String str) {
+		  
+	  String bread = "bread";
+	  int countBread = 0;
+	  int breadIndex1 = 0;
+	  int breadIndex2 = 0;
+	  int i = 0; 
+
+	  while (i < str.length()) {
+	    
+	    // Check to make sure remaining string length is at least 5 chars
+	    if (i+bread.length()-1 < str.length()) {
+	      
+	      // If sequence == "bread"
+	      if (str.substring(i, i+bread.length()).equals(bread)) {
+	        
+	        // Count occurrences of "bread" (max out at 2)
+	        countBread = (countBread < 2) ? countBread+1 : countBread;
+	        
+	        // 1st occurrence of "bread"
+	        if (countBread == 1) {
+	          breadIndex1 = i+5;
+	        // This will overwrite any previous occurrence of "bread"
+	        } else if (countBread == 2) {
+	          breadIndex2 = i;
+	        }
+	        
+	        // Increment by bread length
+	        i += bread.length();
+	      
+	      // Else just increment by 1
+	      } else {
+	        i++;
+	      }
+	    
+	    // Else just increment by 1
+	    } else {
+	      i++;
+	    }
+	  }
+	  
+	  // If 2 breads found, return content inside
+	  if (countBread == 2) {
+	    return str.substring(breadIndex1, breadIndex2);
+	  } else {
+	    return "";
+	  }
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p180759
+	 * Look for patterns like "zip" and "zap" in the string -- length-3, 
+	 * starting with 'z' and ending with 'p'. Return a string where for 
+	 * all such words, the middle letter is gone, so "zipXzap" yields "zpXzp".
+	 * @param str
+	 * @return
+	 */
+	public String zipZap(String str) {
+	  String newStr = "";
+	  int i = 0;
+	  
+	  while (i < str.length()) {
+	    
+	    // if the last substring being analyzed is at least 3 chars long
+	    if (i+2 < str.length()) {
+	      
+	      // if "z_p" is found
+	      if (str.charAt(i) == 'z' && str.charAt(i+2) == 'p') {
+	        newStr += "zp";
+	        i+=3;
+	      // else just add char
+	      } else {
+	        newStr += str.substring(i, i+1);
+	        i++;
+	      }
+	    // just add remaining chars
+	    } else {
+	      newStr += str.substring(i, i+1);
+	      i++;
+	    }
+	  }
+	  
+	  return newStr;
+	}
+
 
 }
