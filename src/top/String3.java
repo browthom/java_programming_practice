@@ -307,4 +307,62 @@ public class String3 {
 	  
 	  return sum;
 	}
+	
+	/**
+	 * https://codingbat.com/prob/p154137
+	 * Given a string, return a string where every appearance of the 
+	 * lowercase word "is" has been replaced with "is not". The word 
+	 * "is" should not be immediately preceeded or followed by a letter 
+	 * -- so for example the "is" in "this" does not count. 
+	 * (Note: Character.isLetter(char) tests if a char is a letter.)
+	 * @param str
+	 * @return
+	 */
+	public String notReplace(String str) {
+	  String newStr = "";
+	  int i = 0;
+	  
+	  while (i < str.length()) {
+	    // Ensure we are within range
+	    if (i+1 < str.length()) {
+	      if (str.substring(i, i+2).equals("is")) {
+	        boolean front = false, back = false;
+	        
+	        if ((i-1) >= 0) {
+	          if (!Character.isLetter(str.charAt(i-1))) {
+	            front = true;
+	          }
+	        } else {
+	          front = true;
+	        }
+	        
+	        if (i+2 < str.length()) {
+	          if (!Character.isLetter(str.charAt(i+2))) {
+	            back = true;
+	          }
+	        } else {
+	          back = true;
+	        }
+	        
+	        if (front && back) {
+	          newStr += "is not";
+	          i += 2;
+	        } else {
+	          newStr += str.substring(i,i+1);
+	          i++;
+	        }
+	      } else {
+	        newStr += str.substring(i,i+1);
+	        i++;
+	      }
+	    } else {
+	      newStr += str.substring(i,i+1);
+	      i++;
+	    }
+	  }
+	  
+	  return newStr;
+	}
+
+
 }
