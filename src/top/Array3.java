@@ -250,4 +250,9 @@ public class Array3 {
 	  
 	  return tempMax;
 	}
+	
+	public static void main(String[] args) {
+		
+	}
+	
 }

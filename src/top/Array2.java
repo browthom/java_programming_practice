@@ -485,5 +485,196 @@ public class Array2 {
 	  
 	  return two ^ four;
 	}
+	
+	/**
+	 * https://codingbat.com/prob/p134300
+	 * Return true if the group of N numbers at the start and end 
+	 * of the array are the same. For example, with {5, 6, 45, 99, 13, 5, 6}, 
+	 * the ends are the same for n=0 and n=2, and false for n=1 and n=3. 
+	 * You may assume that n is in the range 0..nums.length inclusive.
+	 * @param nums
+	 * @param len
+	 * @return
+	 */
+	public boolean sameEnds(int[] nums, int len) {
+		  
+	  for (int i = 0; i < len; i++) {
+	    if (nums[i] != nums[nums.length-len+i]) {
+	      return false;
+	    }
+	  }
+	  
+	  return true;
+	}
+
+	/**
+	 * https://codingbat.com/prob/p137874
+	 * Return true if the array contains, somewhere, 
+	 * three increasing adjacent numbers like .... 
+	 * 4, 5, 6, ... or 23, 24, 25.
+	 * @param nums
+	 * @return
+	 */
+	public boolean tripleUp(int[] nums) {
+		  
+	  for (int i = 0; i+2 < nums.length; i++) {
+	    if (nums[i]+1 == nums[i+1] &&
+	        nums[i+1]+1 == nums[i+2])
+	        return true;
+	  }
+	  
+	  return false;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p142539
+	 * Given start and end numbers, return a new array containing 
+	 * the sequence of integers from start up to but not including end, 
+	 * so start=5 and end=10 yields {5, 6, 7, 8, 9}. The end number 
+	 * will be greater or equal to the start number. 
+	 * Note that a length-0 array is valid. (See also: FizzBuzz Code)
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public int[] fizzArray3(int start, int end) {
+	  int[] array = new int[end-start];
+	  
+	  for (int i = 0; i < end-start; i++) {
+	    array[i] = start+i;
+	  }
+	  
+	  return array;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p105031
+	 * Return an array that is "left shifted" by one -- so {6, 2, 5, 3} 
+	 * returns {2, 5, 3, 6}. You may modify and return the given array, 
+	 * or return a new array.
+	 * @param nums
+	 * @return
+	 */
+	public int[] shiftLeft(int[] nums) {
+	  
+	  int begTemp = 0;
+	  
+	  for (int i = 0; i < nums.length; i++) {
+	    if (i == 0) {
+	      begTemp = nums[i];
+	    } else if (i > 0 && i < nums.length-1) {
+	      nums[i-1] = nums[i];
+	    } else {
+	      nums[i-1] = nums[i];
+	      nums[i] = begTemp;
+	    }
+	  }
+	  
+	  return nums;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p199484
+	 * For each multiple of 10 in the given array, 
+	 * change all the values following it to be that multiple of 10, 
+	 * until encountering another multiple of 10. So {2, 10, 3, 4, 20, 5} 
+	 * yields {2, 10, 10, 10, 20, 20}.
+	 * @param nums
+	 * @return
+	 */
+	public int[] tenRun(int[] nums) {
+	  int value = 1;
+	  
+	  for (int i = 0; i < nums.length; i++) {
+	    if (nums[i] % 10 == 0) {
+	      value = nums[i];
+	    } else if (value % 10 == 0) {
+	      nums[i] = value;
+	    }
+	  }
+	  
+	  return nums;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p100246
+	 * Given a non-empty array of ints, return a new array 
+	 * containing the elements from the original array that come 
+	 * before the first 4 in the original array. The original 
+	 * array will contain at least one 4. Note that it is valid 
+	 * in java to create an array of length 0.
+	 * @param nums
+	 * @return
+	 */
+	public int[] pre4(int[] nums) {
+	  int i = 0;
+	  while (nums[i] != 4) {
+	    i++;
+	  }
+	  
+	  int[] array = new int[i];
+	  
+	  for (int j = 0; j < array.length; j++) {
+	    array[j] = nums[j];
+	  }
+	  
+	  return array;
+	}
+	
+	/**
+	 * https://codingbat.com/prob/p164144
+	 * Given a non-empty array of ints, return a new array 
+	 * containing the elements from the original array that 
+	 * come after the last 4 in the original array. 
+	 * The original array will contain at least one 4. 
+	 * Note that it is valid in java to create an array of length 0.
+	 * @param nums
+	 * @return
+	 */
+	public int[] post4(int[] nums) {
+	  int i = nums.length-1;
+	  
+	  while (nums[i] != 4) {
+	    i--;
+	  }
+	  
+	  int[] array = new int[nums.length-(i+1)];
+	  
+	  for (int j = 0; j < array.length; j++) {
+	    array[j] = nums[j+i+1];
+	  }
+	  
+	  return array;
+	}
+
+	/**
+	 * https://codingbat.com/prob/p169506
+	 * We'll say that an element in an array is "alone" 
+	 * if there are values before and after it, and those 
+	 * values are different from it. Return a version of 
+	 * the given array where every instance of the given 
+	 * value which is alone is replaced by whichever value 
+	 * to its left or right is larger.
+	 * @param nums
+	 * @param val
+	 * @return
+	 */
+	public int[] notAlone(int[] nums, int val) {
+	  int[] newArray = new int[nums.length];
+	  
+	  for (int i = 0; i < nums.length; i++) {
+	    if (i == 0 || i == nums.length-1) {
+	      newArray[i] = nums[i];
+	    } else if (nums[i] == val && 
+	               nums[i-1] != val && 
+	               nums[i+1] != val) {
+	      newArray[i] = (nums[i-1] > nums[i+1]) ? nums[i-1] : nums[i+1];
+	    } else {
+	      newArray[i] = nums[i];
+	    }
+	  }
+	  
+	  return newArray;
+	}
 
 }
