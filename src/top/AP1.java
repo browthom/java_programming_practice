@@ -2,6 +2,8 @@ package top;
 
 public class AP1 {
 	
+	
+	
 	/**
 	 * https://codingbat.com/prob/p146974
 	 * Given an array of scores, return true if each score 
@@ -18,5 +20,23 @@ public class AP1 {
 	  }
 	  
 	  return true;
+	}
+	
+	public int commonTwo(String[] a, String[] b) {
+	  int sum = 0, i = 0, j = 0;
+	  
+	  while(i < a.length && j < b.length) {
+	    if (a[i].compareTo(b[j]) < 0) {
+	      i++;
+	    } else if (a[i].compareTo(b[j]) > 0) {
+	      j++;
+	    } else {
+	      sum++;
+	      i++;
+	      j++;
+	    }
+	  }
+	  
+	  return sum;
 	}
 }
